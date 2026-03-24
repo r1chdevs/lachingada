@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>LA CARTA | LA CHINGADA</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-surface": "#e5e2e1",
+                        "on-surface-variant": "#d0c5b2",
+                        "on-primary-fixed-variant": "#584400",
+                        "primary-fixed-dim": "#e6c364",
+                        "on-secondary": "#402d00",
+                        "on-tertiary-fixed": "#1c1c1a",
+                        "error-container": "#93000a",
+                        "on-surface": "#e5e2e1",
+                        "on-secondary-fixed": "#261a00",
+                        "secondary": "#e9c16d",
+                        "on-secondary-container": "#e9c16d",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary": "#c9c6c3",
+                        "surface-variant": "#353534",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface": "#131313",
+                        "background": "#131313",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "primary-container": "#c9a84c",
+                        "surface-dim": "#131313",
+                        "tertiary-container": "#adaba8",
+                        "secondary-fixed-dim": "#e9c16d",
+                        "on-error-container": "#ffdad6",
+                        "primary": "#e6c364",
+                        "tertiary-fixed": "#e5e2de",
+                        "on-tertiary": "#31302e",
+                        "secondary-container": "#6a4e00",
+                        "surface-container": "#201f1f",
+                        "surface-bright": "#3a3939",
+                        "surface-tint": "#e6c364",
+                        "on-primary-container": "#503d00",
+                        "outline": "#99907e",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "surface-container-highest": "#353534",
+                        "inverse-on-surface": "#313030",
+                        "on-primary": "#3d2e00",
+                        "on-tertiary-container": "#40403d",
+                        "on-error": "#690005",
+                        "secondary-fixed": "#ffdea0",
+                        "outline-variant": "#4d4637",
+                        "inverse-primary": "#755b00",
+                        "surface-container-high": "#2a2a2a",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#ffe08f",
+                        "on-primary-fixed": "#241a00",
+                        "on-tertiary-fixed-variant": "#474744"
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+        }
+        .category-tab.active {
+            color: #e6c364;
+            border-bottom: 2px solid #e6c364;
+            opacity: 1;
+        }
+        .category-tab {
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+        .menu-item-card {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .hidden-item {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            position: absolute;
+            visibility: hidden;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden pt-20 pb-32">
+    <!-- TopAppBar -->
+    <header class="fixed top-0 w-full z-50 px-6 py-4 flex items-center justify-between bg-[#0e0e0e] dark:bg-black">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-[#e6c364] cursor-pointer" data-icon="menu">menu</span>
+        </div>
+        <div class="font-serif font-bold uppercase tracking-widest text-2xl text-white">
+            <img alt="LA CHINGADA" class="h-8 md:h-10 object-contain mx-auto" src="https://lh3.googleusercontent.com/aida/ADBb0ujyb7sv7EvN3p5VHINTcG92DnFw1FBaA42jCefBl0gOrQNZerNj3-Asw0PwmRlvXAULRbDzSPh8bsruZE8nn0zLdcnoLE0sLHB0Leuyjr1TuBUAoqmABT0htHknkMghUPI7BHrLmiEe37TzUqed5MhgM2Pyf71oHUrMITypFrSO02MjvYT0dewcjUDfWXtGvXva5Iz7x9OpdtUC5BN3pmv-KnAX0vCllBbVcYBiLe6dRvkEBgh82A6Ss9GXVbQu8Y5g7O5Hbn8X"/>
+        </div>
+        <div class="hidden md:flex gap-8">
+            <a class="text-white/40 font-label text-sm tracking-widest uppercase hover:text-[#e6c364] transition-colors duration-300" href="/">Home</a>
+            <a class="text-[#e6c364] font-label text-sm tracking-widest uppercase transition-colors duration-300" href="/menu.html">Menu</a>
+            <a class="text-white/40 font-label text-sm tracking-widest uppercase hover:text-[#e6c364] transition-colors duration-300" href="/cart.html">Cart</a>
+        </div>
+        <div class="md:hidden">
+            <a href="/cart.html" class="material-symbols-outlined text-white/40" data-icon="shopping_cart">shopping_cart</a>
+        </div>
+    </header>
+
+    <!-- Menu Header -->
+    <section class="px-6 py-12 text-center max-w-4xl mx-auto">
+        <h1 class="font-headline text-5xl md:text-7xl text-white mb-4 tracking-tight uppercase">LA CARTA</h1>
+        <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+        <p class="font-body text-white/60 text-sm md:text-base uppercase tracking-[0.3em] font-light">Sabor Urbano • Estilo Editorial • Desde 1991</p>
+    </section>
+
+    <!-- Category Tabs -->
+    <div class="sticky top-16 z-40 bg-[#131313]/90 backdrop-blur-md border-b border-outline-variant/10 px-6 overflow-x-auto no-scrollbar">
+        <div class="max-w-7xl mx-auto flex gap-8 md:justify-center whitespace-nowrap py-4">
+            <button class="category-tab active font-label text-xs uppercase tracking-widest py-2 px-1" data-category="hamburgesas">Hamburgesas</button>
+            <button class="category-tab font-label text-xs uppercase tracking-widest py-2 px-1" data-category="papas">Papas</button>
+            <button class="category-tab font-label text-xs uppercase tracking-widest py-2 px-1" data-category="alitas">Alitas</button>
+            <button class="category-tab font-label text-xs uppercase tracking-widest py-2 px-1" data-category="batidos">Batidos</button>
+            <button class="category-tab font-label text-xs uppercase tracking-widest py-2 px-1" data-category="colas">Colas</button>
+            <button class="category-tab font-label text-xs uppercase tracking-widest py-2 px-1" data-category="otros">Otros</button>
+        </div>
+    </div>
+
+    <!-- Menu Grid -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-grid">
+            <!-- Hamburgesas -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all group" data-category="hamburgesas" data-item='{"id": "asesina-burger", "name": "Asesina Burger", "price": 13.50, "ingredients": ["Doble carne", "Cheddar", "Cebolla caramelizada", "Lechuga", "Tomate", "Salsa Secreta"]}'>
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-headline text-2xl text-white">Asesina Burger</h3>
+                    <span class="font-body text-primary font-bold">$13.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-8 leading-relaxed">Doble carne de res premium, queso cheddar fundido, cebolla caramelizada al vino tinto, lechuga fresca, tomate y nuestra salsa secreta.</p>
+                <div class="flex gap-4">
+                    <button class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn" aria-label="Personalizar Asesina Burger">
+                        <span class="material-symbols-outlined text-primary" data-icon="tune">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all group" data-category="hamburgesas" data-item='{"id": "chingada-original", "name": "Chingada Original", "price": 11.00, "ingredients": ["Carne 180g", "Queso Blanco", "Pepinillos", "Cebolla Morada", "Mostaza Dulce"]}'>
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-headline text-2xl text-white">Chingada Original</h3>
+                    <span class="font-body text-primary font-bold">$11.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-8 leading-relaxed">La que lo empezó todo. Carne 180g, queso blanco artesanal, pepinillos premium, cebolla morada y mostaza dulce de la casa.</p>
+                <div class="flex gap-4">
+                    <button class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn" aria-label="Personalizar Chingada Original">
+                        <span class="material-symbols-outlined text-primary" data-icon="tune">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Papas -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all group hidden-item" data-category="papas" data-item='{"id": "salchipoque", "name": "Salchipoque", "price": 9.50, "ingredients": ["Papas fritas", "Salchicha artesanal", "Queso fundido", "Cebollín", "Salsas"]}'>
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-headline text-2xl text-white">Salchipoque</h3>
+                    <span class="font-body text-primary font-bold">$9.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-8 leading-relaxed">Nuestra versión de las salchipapas. Papas rústicas, salchicha artesanal ahumada, lluvia de cebollín y mix de salsas.</p>
+                <div class="flex gap-4">
+                    <button class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn" aria-label="Personalizar Salchipoque">
+                        <span class="material-symbols-outlined text-primary" data-icon="tune">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Alitas -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all group hidden-item" data-category="alitas" data-item='{"id": "alitas-bbq", "name": "Alitas BBQ Ahumadas", "price": 10.00}'>
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-headline text-2xl text-white">Alitas BBQ Ahumadas</h3>
+                    <span class="font-body text-primary font-bold">$10.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-8 leading-relaxed">6 piezas de alitas bañadas en nuestra salsa BBQ artesanal con un toque ahumado a leña.</p>
+                <button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <!-- Batidos -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all group hidden-item" data-category="batidos" id="batidos-selector-card">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-headline text-2xl text-white">Batidos Especiales</h3>
+                    <span class="font-body text-primary font-bold" id="batido-price-display">$1.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Elige tu sabor favorito. Cremosos y preparados al momento.</p>
+                
+                <div class="mb-6">
+                    <label class="block font-label text-[10px] uppercase tracking-widest text-white/40 mb-2" for="batido-flavor">Selecciona Sabor</label>
+                    <select id="batido-flavor" class="w-full bg-surface-container-highest border-none text-white rounded-lg font-body text-sm focus:ring-primary">
+                        <optgroup label="$1.50">
+                            <option value="Oreo" data-price="1.50">Oreo</option>
+                            <option value="Mora" data-price="1.50">Mora</option>
+                            <option value="Frutilla" data-price="1.50">Frutilla</option>
+                            <option value="Naranjilla" data-price="1.50">Naranjilla</option>
+                            <option value="Chocolate" data-price="1.50">Chocolate</option>
+                            <option value="Chocobanano" data-price="1.50">Chocobanano</option>
+                            <option value="Chocomenta" data-price="1.50">Chocomenta</option>
+                            <option value="Menta" data-price="1.50">Menta</option>
+                            <option value="Chicle" data-price="1.50">Chicle</option>
+                            <option value="Capuccino" data-price="1.50">Capuccino</option>
+                            <option value="Moccacino" data-price="1.50">Moccacino</option>
+                            <option value="Coffe Caramel" data-price="1.50">Coffe Caramel</option>
+                            <option value="Mamey" data-price="1.50">Mamey</option>
+                            <option value="Higo" data-price="1.50">Higo</option>
+                            <option value="Manjar" data-price="1.50">Manjar</option>
+                            <option value="Banano" data-price="1.50">Banano</option>
+                        </optgroup>
+                        <optgroup label="$1.75">
+                            <option value="Durazno" data-price="1.75">Durazno</option>
+                            <option value="Coco" data-price="1.75">Coco</option>
+                            <option value="Níspero" data-price="1.75">Níspero</option>
+                            <option value="Frapuccino" data-price="1.75">Frapuccino</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <button id="add-batido-btn" class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">Agregar</button>
+            </div>
+
+            <!-- Colas -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all group hidden-item" data-category="colas" id="colas-selector-card">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-headline text-2xl text-white">Refrescos</h3>
+                    <span class="font-body text-primary font-bold" id="cola-price-display">$1.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Bien fríos. Elige sabor y tamaño.</p>
+                
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block font-label text-[10px] uppercase tracking-widest text-white/40 mb-2" for="cola-flavor">Sabor</label>
+                        <select id="cola-flavor" class="w-full bg-surface-container-highest border-none text-white rounded-lg font-body text-sm focus:ring-primary">
+                            <option value="Coca Cola">Coca Cola</option>
+                            <option value="Fanta">Fanta</option>
+                            <option value="Sprite">Sprite</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-label text-[10px] uppercase tracking-widest text-white/40 mb-2" for="cola-size">Tamaño</label>
+                        <select id="cola-size" class="w-full bg-surface-container-highest border-none text-white rounded-lg font-body text-sm focus:ring-primary">
+                            <option value="Cola Plástico" data-price="0.75">Cola Plástico</option>
+                            <option value="Cola 500ml" data-price="1.00">Cola 500ml</option>
+                            <option value="Cola 1 Litro" data-price="1.00">Cola 1 Litro</option>
+                            <option value="Cola ¼ Litro" data-price="1.50">Cola ¼ Litro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="add-cola-btn" class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">Agregar</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 pb-safe bg-[#0e0e0e]/80 backdrop-blur-xl border-t border-[#4d4637]/20 shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
+        <a class="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all" href="/">
+            <span class="material-symbols-outlined" data-icon="home">home</span>
+            <span class="font-sans text-[10px] uppercase tracking-tighter">Home</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#e6c364] scale-110 transition-transform" href="/menu.html">
+            <span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+            <span class="font-sans text-[10px] uppercase tracking-tighter">Menu</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all relative" href="/cart.html">
+            <span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+            <span class="font-sans text-[10px] uppercase tracking-tighter">Cart</span>
+            <span id="mobile-cart-badge" class="hidden absolute -top-1 -right-1 bg-[#e6c364] text-black text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </a>
+    </nav>
+
+    <!-- Floating Cart Button -->
+    <div id="floating-cart-btn" class="fixed bottom-20 right-6 md:bottom-6 md:right-6 z-[60] cursor-pointer">
+        <div class="relative bg-primary text-on-primary p-4 rounded-full shadow-2xl hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl" data-icon="shopping_cart">shopping_cart</span>
+            <span id="floating-cart-badge" class="hidden absolute -top-1 -right-1 bg-white text-black text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-primary">0</span>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer-overlay" class="fixed inset-0 bg-black/60 z-[100] hidden opacity-0 transition-opacity duration-300"></div>
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-surface z-[101] translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="p-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-lowest">
+            <h2 class="font-headline text-2xl text-white">Tu Pedido</h2>
+            <button id="close-drawer" class="material-symbols-outlined text-white/60 hover:text-white" aria-label="Cerrar carrito">close</button>
+        </div>
+        <div id="drawer-items" class="flex-grow overflow-y-auto p-6 space-y-6 no-scrollbar">
+            <!-- Items injected here -->
+        </div>
+        <div class="p-6 border-t border-outline-variant/20 bg-surface-container-lowest">
+            <div class="flex justify-between items-center mb-6">
+                <span class="font-body text-sm uppercase tracking-widest text-white/60">Subtotal</span>
+                <span id="drawer-subtotal" class="font-body text-xl text-primary font-bold">$0.00</span>
+            </div>
+            <a href="/cart.html" class="block w-full bg-primary text-on-primary py-4 text-center font-label text-sm uppercase tracking-widest font-bold rounded-lg hover:bg-white hover:text-black transition-all">
+                Ver Pedido Completo
+            </a>
+        </div>
+    </div>
+
+    <!-- Customization Modal -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black/80 z-[200] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-6">
+        <div id="custom-modal" class="bg-surface-container-lowest w-full max-w-lg rounded-2xl overflow-hidden translate-y-8 transition-transform duration-300 shadow-2xl border border-outline-variant/20">
+            <div class="p-8 border-b border-outline-variant/10 flex justify-between items-center">
+                <h2 id="modal-title" class="font-headline text-3xl text-white">Personalizar</h2>
+                <button id="close-modal" class="material-symbols-outlined text-white/40 hover:text-white" aria-label="Cerrar modal">close</button>
+            </div>
+            <div class="p-8">
+                <p class="font-label text-[10px] uppercase tracking-[0.2em] text-primary mb-6">Quitar ingredientes</p>
+                <div id="ingredients-list" class="space-y-4">
+                    <!-- Checkboxes injected here -->
+                </div>
+            </div>
+            <div class="p-8 bg-surface-container-low flex gap-4">
+                <button id="modal-add-btn" class="flex-grow bg-primary text-on-primary py-4 rounded-xl font-label text-sm uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">Agregar al carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[110] bg-primary text-on-primary px-6 py-3 rounded-full font-body text-sm font-semibold shadow-xl opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
+        ✓ Agregado al carrito
+    </div>
+
+    <script src="src/logic.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>TU PEDIDO | LA CHINGADA</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-surface": "#e5e2e1",
+                        "on-surface-variant": "#d0c5b2",
+                        "on-primary-fixed-variant": "#584400",
+                        "primary-fixed-dim": "#e6c364",
+                        "on-secondary": "#402d00",
+                        "on-tertiary-fixed": "#1c1c1a",
+                        "error-container": "#93000a",
+                        "on-surface": "#e5e2e1",
+                        "on-secondary-fixed": "#261a00",
+                        "secondary": "#e9c16d",
+                        "on-secondary-container": "#e9c16d",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary": "#c9c6c3",
+                        "surface-variant": "#353534",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface": "#131313",
+                        "background": "#131313",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "primary-container": "#c9a84c",
+                        "surface-dim": "#131313",
+                        "tertiary-container": "#adaba8",
+                        "secondary-fixed-dim": "#e9c16d",
+                        "on-error-container": "#ffdad6",
+                        "primary": "#e6c364",
+                        "tertiary-fixed": "#e5e2de",
+                        "on-tertiary": "#31302e",
+                        "secondary-container": "#6a4e00",
+                        "surface-container": "#201f1f",
+                        "surface-bright": "#3a3939",
+                        "surface-tint": "#e6c364",
+                        "on-primary-container": "#503d00",
+                        "outline": "#99907e",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "surface-container-highest": "#353534",
+                        "inverse-on-surface": "#313030",
+                        "on-primary": "#3d2e00",
+                        "on-tertiary-container": "#40403d",
+                        "on-error": "#690005",
+                        "secondary-fixed": "#ffdea0",
+                        "outline-variant": "#4d4637",
+                        "inverse-primary": "#755b00",
+                        "surface-container-high": "#2a2a2a",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#ffe08f",
+                        "on-primary-fixed": "#241a00",
+                        "on-tertiary-fixed-variant": "#474744"
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+        }
+        .cart-item-row {
+            transition: all 0.3s ease;
+        }
+        .removing {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden pt-20 pb-32">
+    <!-- TopAppBar -->
+    <header class="fixed top-0 w-full z-50 px-6 py-4 flex items-center justify-between bg-[#0e0e0e] dark:bg-black">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-[#e6c364] cursor-pointer" data-icon="menu">menu</span>
+        </div>
+        <div class="font-serif font-bold uppercase tracking-widest text-2xl text-white">
+            <img alt="LA CHINGADA" class="h-8 md:h-10 object-contain mx-auto" src="https://lh3.googleusercontent.com/aida/ADBb0ujyb7sv7EvN3p5VHINTcG92DnFw1FBaA42jCefBl0gOrQNZerNj3-Asw0PwmRlvXAULRbDzSPh8bsruZE8nn0zLdcnoLE0sLHB0Leuyjr1TuBUAoqmABT0htHknkMghUPI7BHrLmiEe37TzUqed5MhgM2Pyf71oHUrMITypFrSO02MjvYT0dewcjUDfWXtGvXva5Iz7x9OpdtUC5BN3pmv-KnAX0vCllBbVcYBiLe6dRvkEBgh82A6Ss9GXVbQu8Y5g7O5Hbn8X"/>
+        </div>
+        <div class="hidden md:flex gap-8">
+            <a class="text-white/40 font-label text-sm tracking-widest uppercase hover:text-[#e6c364] transition-colors duration-300" href="/">Home</a>
+            <a class="text-white/40 font-label text-sm tracking-widest uppercase hover:text-[#e6c364] transition-colors duration-300" href="/menu.html">Menu</a>
+            <a class="text-[#e6c364] font-label text-sm tracking-widest uppercase transition-colors duration-300" href="/cart.html">Cart</a>
+        </div>
+        <div class="md:hidden">
+            <a href="/cart.html" class="material-symbols-outlined text-[#e6c364]" data-icon="shopping_cart">shopping_cart</a>
+        </div>
+    </header>
+
+    <!-- Cart Header -->
+    <section class="px-6 py-12 text-center max-w-4xl mx-auto">
+        <h1 class="font-headline text-5xl md:text-7xl text-white mb-4 tracking-tight uppercase">TU PEDIDO</h1>
+        <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+    </section>
+
+    <!-- Main Cart Content -->
+    <main class="max-w-5xl mx-auto px-6 py-8">
+        <div id="cart-container" class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- Items Section -->
+            <div class="lg:col-span-2 space-y-8" id="cart-items-list">
+                <!-- Items will be injected here -->
+            </div>
+
+            <!-- Summary Section -->
+            <div id="cart-summary" class="bg-surface-container-low p-8 rounded-2xl border border-outline-variant/10 h-fit sticky top-24">
+                <h2 class="font-headline text-2xl text-white mb-8 uppercase tracking-widest">Resumen</h2>
+                <div class="space-y-4 mb-8">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-white/40 uppercase tracking-widest">Subtotal</span>
+                        <span id="cart-subtotal" class="text-white font-bold">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-white/40 uppercase tracking-widest">Envío</span>
+                        <span class="text-primary font-bold">GRATIS</span>
+                    </div>
+                    <div class="h-px bg-outline-variant/20 my-4"></div>
+                    <div class="flex justify-between text-xl">
+                        <span class="text-white font-headline uppercase">Total</span>
+                        <span id="cart-total" class="text-primary font-bold">$0.00</span>
+                    </div>
+                </div>
+                <button id="whatsapp-btn" class="w-full bg-primary text-on-primary py-5 rounded-xl font-label text-sm uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3 shadow-xl shadow-primary/10">
+                    <span class="material-symbols-outlined" data-icon="chat">chat</span>
+                    Enviar Pedido por WhatsApp
+                </button>
+                <p class="text-[10px] text-white/20 text-center mt-6 uppercase tracking-widest leading-relaxed">Al hacer clic, serás redirigido a WhatsApp para confirmar los detalles de tu pedido.</p>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-cart-state" class="hidden flex flex-col items-center justify-center py-24 text-center">
+            <div class="w-48 h-48 mb-12 opacity-20">
+                <span class="material-symbols-outlined text-[120px] text-primary" data-icon="shopping_basket">shopping_basket</span>
+            </div>
+            <h2 class="font-headline text-4xl text-white mb-4">Tu pedido está vacío</h2>
+            <p class="font-body text-white/40 mb-12 max-w-xs mx-auto">Parece que aún no has agregado nada a tu carrito. ¡Explora nuestra carta!</p>
+            <a href="/menu.html" class="inline-block bg-primary text-on-primary px-12 py-5 rounded-xl font-label text-sm uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">
+                Ver Menú
+            </a>
+        </div>
+    </main>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 pb-safe bg-[#0e0e0e]/80 backdrop-blur-xl border-t border-[#4d4637]/20 shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
+        <a class="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all" href="/">
+            <span class="material-symbols-outlined" data-icon="home">home</span>
+            <span class="font-sans text-[10px] uppercase tracking-tighter">Home</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all" href="/menu.html">
+            <span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+            <span class="font-sans text-[10px] uppercase tracking-tighter">Menu</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#e6c364] scale-110 transition-transform relative" href="/cart.html">
+            <span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+            <span class="font-sans text-[10px] uppercase tracking-tighter">Cart</span>
+            <span id="mobile-cart-badge" class="hidden absolute -top-1 -right-1 bg-[#e6c364] text-black text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </a>
+    </nav>
+
+    <script src="src/logic.js"></script>
+</body>
+</html>
