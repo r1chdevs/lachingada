@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>LA CARTA | LA CHINGADA</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-surface": "#e5e2e1", "on-surface-variant": "#d0c5b2", "on-primary-fixed-variant": "#584400", "primary-fixed-dim": "#e6c364", "on-secondary": "#402d00", "on-tertiary-fixed": "#1c1c1a", "error-container": "#93000a", "on-surface": "#e5e2e1", "on-secondary-fixed": "#261a00", "secondary": "#e9c16d", "on-secondary-container": "#e9c16d", "surface-container-low": "#1c1b1b", "tertiary": "#c9c6c3", "surface-variant": "#353534", "error": "#ffb4ab", "surface-container-lowest": "#0e0e0e", "surface": "#131313", "background": "#131313", "on-secondary-fixed-variant": "#5c4300", "primary-container": "#c9a84c", "surface-dim": "#131313", "tertiary-container": "#adaba8", "secondary-fixed-dim": "#e9c16d", "on-error-container": "#ffdad6", "primary": "#e6c364", "tertiary-fixed": "#e5e2de", "on-tertiary": "#31302e", "secondary-container": "#6a4e00", "surface-container": "#201f1f", "surface-bright": "#3a3939", "surface-tint": "#e6c364", "on-primary-container": "#503d00", "outline": "#99907e", "tertiary-fixed-dim": "#c8c6c2", "surface-container-highest": "#353534", "inverse-on-surface": "#313030", "on-primary": "#3d2e00", "on-tertiary-container": "#40403d", "on-error": "#690005", "secondary-fixed": "#ffdea0", "outline-variant": "#4d4637", "inverse-primary": "#755b00", "surface-container-high": "#2a2a2a", "on-background": "#e5e2e1", "primary-fixed": "#ffe08f", "on-primary-fixed": "#241a00", "on-tertiary-fixed-variant": "#474744"
+                    },
+                    fontFamily: { "headline": ["Newsreader", "serif"], "body": ["Inter", "sans-serif"], "label": ["Inter", "sans-serif"] },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .category-tab.active {
+            color: #e6c364;
+            border-bottom: 2px solid #e6c364;
+            opacity: 1;
+        }
+
+        .category-tab {
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item-card {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .hidden-item {
+            display: none;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .subcategory-label {
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+            color: #e6c364;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+            margin-top: 1.5rem;
+        }
+    </style>
+    <link rel="icon" type="image/png" href="src/logo.png">
+    <link rel="apple-touch-icon" href="src/logo.png">
+</head>
+
+<body class="antialiased overflow-x-hidden pt-20 pb-32">
+
+    <!-- TopAppBar -->
+    <header class="fixed top-0 w-full z-50 px-6 py-4 flex items-center bg-[#0e0e0e] dark:bg-black">
+        <div class="w-10 md:w-48"></div>
+        <div class="flex-grow flex justify-center">
+            <img alt="LA CHINGADA" class="h-8 md:h-10 object-contain" src="src/logo.png" />
+        </div>
+        <div class="hidden md:flex gap-8 w-48 justify-end">
+            <a class="text-white/40 font-label text-sm tracking-widest uppercase hover:text-[#e6c364] transition-colors duration-300"
+                href="index.html">Home</a>
+            <a class="text-[#e6c364] font-label text-sm tracking-widest uppercase" href="menu.html">Menu</a>
+            <a class="text-white/40 font-label text-sm tracking-widest uppercase hover:text-[#e6c364] transition-colors duration-300"
+                href="cart.html">Cart</a>
+        </div>
+        <div class="md:hidden w-10 flex justify-end">
+            <a href="cart.html" class="material-symbols-outlined text-white/40">shopping_cart</a>
+        </div>
+    </header>
+
+    <!-- Menu Header -->
+    <section class="px-6 py-12 text-center max-w-4xl mx-auto">
+        <h1 class="font-headline text-5xl md:text-7xl text-white mb-4 tracking-tight uppercase">LA CARTA</h1>
+        <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+        <p class="font-body text-white/60 text-sm md:text-base uppercase tracking-[0.3em] font-light">Sabor Urbano •
+            Estilo Editorial • Desde 1991</p>
+    </section>
+
+    <!-- Category Tabs -->
+    <div
+        class="sticky top-16 z-40 bg-[#131313]/90 backdrop-blur-md border-b border-outline-variant/10 px-6 overflow-x-auto no-scrollbar">
+        <div class="max-w-7xl mx-auto flex gap-6 whitespace-nowrap py-4 justify-center">
+            <button class="category-tab active font-label text-xs uppercase tracking-widest py-2 px-1"
+                data-category="hamburgesas">🍔 Hamburgesas</button>
+            <button class="category-tab font-label text-xs uppercase tracking-widest py-2 px-1" data-category="papas">🍟
+                Papas</button>
+            <button class="category-tab font-label text-xs uppercase tracking-widest py-2 px-1"
+                data-category="alitas">🍗 Alitas</button>
+            <button class="category-tab font-label text-xs uppercase tracking-widest py-2 px-1"
+                data-category="sanduches">🥪 Sánduches</button>
+            <button class="category-tab font-label text-xs uppercase tracking-widest py-2 px-1"
+                data-category="batidos">🥤 Batidos</button>
+            <button class="category-tab font-label text-xs uppercase tracking-widest py-2 px-1"
+                data-category="bebidas">🧃 Bebidas</button>
+        </div>
+    </div>
+
+    <!-- Menu Grid -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-grid">
+
+            <!-- ===== HAMBURGESAS ===== -->
+            <!-- Sencillas -->
+            <div class="menu-item-card col-span-full" data-category="hamburgesas">
+                <p class="subcategory-label">— Sencillas</p>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-sencilla-carne","name":"Burger Carne","price":1.50,"ingredients":["Carne","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Burger Carne</h3>
+                    <span class="font-body text-primary font-bold">$1.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Carne + Lechuga + Tomate + Pepino +
+                    Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-sencilla-pollo","name":"Burger Pollo","price":2.00,"ingredients":["Pollo","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Burger Pollo</h3>
+                    <span class="font-body text-primary font-bold">$2.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Pollo + Lechuga + Tomate + Pepino +
+                    Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-sencilla-mixta","name":"Burger Mixta","price":2.00,"ingredients":["Carne","Papas","Jamón","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Burger Mixta</h3>
+                    <span class="font-body text-primary font-bold">$2.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Carne + Papas + Jamón + Lechuga + Tomate
+                    + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-sencilla-huevo","name":"Burger con Huevo","price":2.00,"ingredients":["Carne","Huevo","Papas","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Burger con Huevo</h3>
+                    <span class="font-body text-primary font-bold">$2.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Carne + Huevo + Papas + Lechuga + Tomate
+                    + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-sencilla-jamon-huevo","name":"Burger Jamón y Huevo","price":2.00,"ingredients":["Carne","Jamón","Huevo","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Burger Jamón y Huevo</h3>
+                    <span class="font-body text-primary font-bold">$2.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Carne + Jamón + Huevo + Lechuga + Tomate
+                    + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ranchera -->
+            <div class="menu-item-card col-span-full" data-category="hamburgesas">
+                <p class="subcategory-label">— Ranchera</p>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-ranchera","name":"Burger Ranchera","price":2.00,"ingredients":["Carne","Chorizo Parrillero","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Burger Ranchera</h3>
+                    <span class="font-body text-primary font-bold">$2.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Carne + Chorizo Parrillero + Lechuga +
+                    Tomate + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Especiales -->
+            <div class="menu-item-card col-span-full" data-category="hamburgesas">
+                <p class="subcategory-label">— Especiales</p>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-especial-carne","name":"Especial de Carne","price":2.50,"ingredients":["Doble Carne","Huevo","Jamón","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Especial de Carne</h3>
+                    <span class="font-body text-primary font-bold">$2.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Doble Carne + Huevo + Jamón + Lechuga +
+                    Tomate + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-especial-pollo","name":"Especial de Pollo","price":2.50,"ingredients":["Pollo","Huevo","Jamón","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Especial de Pollo</h3>
+                    <span class="font-body text-primary font-bold">$2.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Pollo + Huevo + Jamón + Lechuga + Tomate
+                    + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Especiales+ -->
+            <div class="menu-item-card col-span-full" data-category="hamburgesas">
+                <p class="subcategory-label">— Especiales +</p>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-primary/30 hover:border-primary transition-all relative overflow-hidden"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-asesina","name":"Asesina","price":3.75,"ingredients":["Doble Carne","Tocino","Salami","Queso Cheddar","Huevo","Jamón","Papas","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <span
+                    class="absolute top-3 right-3 bg-primary text-on-primary text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">Especial+</span>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Asesina</h3>
+                    <span class="font-body text-primary font-bold">$3.75</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Doble Carne + Tocino + Salami + Queso
+                    Cheddar + Huevo + Jamón + Papas + Lechuga + Tomate + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-primary/30 hover:border-primary transition-all relative overflow-hidden"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-asesina-pollo","name":"Asesina Pollo","price":4.00,"ingredients":["Pollo","Tocino","Salami","Queso Cheddar","Huevo","Jamón","Papas","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <span
+                    class="absolute top-3 right-3 bg-primary text-on-primary text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">Especial+</span>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Asesina Pollo</h3>
+                    <span class="font-body text-primary font-bold">$4.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Pollo + Tocino + Salami + Queso Cheddar
+                    + Huevo + Jamón + Papas + Lechuga + Tomate + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- De Plato -->
+            <div class="menu-item-card col-span-full" data-category="hamburgesas">
+                <p class="subcategory-label">— De Plato</p>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-plato-carne","name":"Burger de Plato Carne","price":2.50,"ingredients":["Doble Carne","Huevo","Jamón","Tocino","Papas","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Burger de Plato Carne</h3>
+                    <span class="font-body text-primary font-bold">$2.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Doble Carne + Huevo + Jamón + Tocino +
+                    Papas + Lechuga + Tomate + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-plato-pollo","name":"Burger de Plato Pollo","price":2.75,"ingredients":["Pollo","Huevo","Jamón","Tocino","Papas","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Burger de Plato Pollo</h3>
+                    <span class="font-body text-primary font-bold">$2.75</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Pollo + Huevo + Jamón + Tocino + Papas +
+                    Lechuga + Tomate + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all"
+                data-category="hamburgesas"
+                data-item='{"id":"burg-plato-mixta","name":"Burger de Plato Mixta","price":3.00,"ingredients":["Pollo","Carne","Huevo","Jamón","Tocino","Papas","Lechuga","Tomate","Pepino","Salsas"]}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Burger de Plato Mixta</h3>
+                    <span class="font-body text-primary font-bold">$3.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6 leading-relaxed">Pollo + Carne + Huevo + Jamón + Tocino +
+                    Papas + Lechuga + Tomate + Pepino + Salsas</p>
+                <div class="flex gap-3">
+                    <button
+                        class="flex-grow bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+                    <button
+                        class="px-4 border border-outline-variant/40 rounded-lg hover:border-primary transition-all customize-btn"
+                        aria-label="Personalizar">
+                        <span class="material-symbols-outlined text-primary text-lg">tune</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ===== PAPAS ===== -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="papas"
+                data-item='{"id":"papa-salchipapa-pequena","name":"Salchipapa Pequeña","price":1.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Salchipapa Pequeña</h3>
+                    <span class="font-body text-primary font-bold">$1.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Papas fritas + Salchicha</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="papas"
+                data-item='{"id":"papa-salchipapa-grande","name":"Salchipapa Grande","price":2.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Salchipapa Grande</h3>
+                    <span class="font-body text-primary font-bold">$2.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Papas fritas + Salchicha grande</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="papas" data-item='{"id":"papa-papi-pollo","name":"Papi Pollo","price":2.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Papi Pollo</h3>
+                    <span class="font-body text-primary font-bold">$2.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Papas fritas + Pollo</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="papas" data-item='{"id":"papa-papi-carne","name":"Papi Carne","price":2.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Papi Carne</h3>
+                    <span class="font-body text-primary font-bold">$2.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Papas fritas + Carne</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="papas" data-item='{"id":"papa-papifritada","name":"Papifritada","price":3.00}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Papifritada</h3>
+                    <span class="font-body text-primary font-bold">$3.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Papas fritas con fritada</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="papas" data-item='{"id":"papa-salchiqueso","name":"Salchiqueso","price":3.00}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Salchiqueso</h3>
+                    <span class="font-body text-primary font-bold">$3.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Papas + Salchicha + Queso fundido</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="papas" data-item='{"id":"papa-salchipollo","name":"Salchipollo","price":3.00}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Salchipollo</h3>
+                    <span class="font-body text-primary font-bold">$3.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Papas + Salchicha + Pollo</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="papas" data-item='{"id":"papa-salchipoque","name":"Salchipoque","price":4.00}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Salchipoque</h3>
+                    <span class="font-body text-primary font-bold">$4.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Papas rústicas + Salchicha artesanal + Mix de salsas</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="papas" data-item='{"id":"papa-papapizza","name":"Papapizza","price":5.00}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Papapizza</h3>
+                    <span class="font-body text-primary font-bold">$5.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Papas estilo pizza con toppings especiales</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <!-- ===== ALITAS ===== -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="alitas" data-item='{"id":"alitas-normales","name":"Alitas Normales","price":4.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Alitas Normales</h3>
+                    <span class="font-body text-primary font-bold">$4.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Alitas crujientes con salsa de la casa</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="alitas" data-item='{"id":"alitas-picantes","name":"Alitas Picantes","price":4.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Alitas Picantes</h3>
+                    <span class="font-body text-primary font-bold">$4.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Alitas bañadas en salsa picante artesanal</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="alitas"
+                data-item='{"id":"alitas-honey-mustard","name":"Alitas Honey Mustard","price":4.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Alitas Honey Mustard</h3>
+                    <span class="font-body text-primary font-bold">$4.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Alitas crujientes con miel mostaza artesanal</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="alitas" data-item='{"id":"alitas-mixtas","name":"Alitas Mixtas","price":4.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Alitas Mixtas</h3>
+                    <span class="font-body text-primary font-bold">$4.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Mix de salsas: normal + picante</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <!-- ===== SÁNDUCHES ===== -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="sanduches"
+                data-item='{"id":"sanduche-chancho","name":"Sánduche de Chancho","price":1.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Sánduche de Chancho</h3>
+                    <span class="font-body text-primary font-bold">$1.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Sánduche de chancho artesanal</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="sanduches"
+                data-item='{"id":"sanduche-queso-cheddar","name":"Sánduche Queso Cheddar","price":1.75}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Sánduche Queso Cheddar</h3>
+                    <span class="font-body text-primary font-bold">$1.75</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Sánduche con queso cheddar fundido</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="sanduches" data-item='{"id":"sanduche-burito","name":"Burito","price":1.75}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Burito</h3>
+                    <span class="font-body text-primary font-bold">$1.75</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Burito artesanal de la casa</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="sanduches" data-item='{"id":"sanduche-fritada","name":"Fritada","price":2.00}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Fritada</h3>
+                    <span class="font-body text-primary font-bold">$2.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Fritada de cerdo artesanal</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="sanduches"
+                data-item='{"id":"sanduche-tostada-queso","name":"Tostada de Queso","price":1.00}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Tostada de Queso</h3>
+                    <span class="font-body text-primary font-bold">$1.00</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Tostada con queso fundido</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="sanduches"
+                data-item='{"id":"sanduche-tostada-mixta","name":"Tostada Mixta","price":1.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Tostada Mixta</h3>
+                    <span class="font-body text-primary font-bold">$1.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Tostada con ingredientes mixtos</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <!-- ===== BATIDOS $1.50 — selector card ===== -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="batidos" id="batidos-selector-card">
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Batidos</h3>
+                    <span class="font-body text-primary font-bold">$1.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-4 leading-relaxed">Cremosos y preparados al momento.</p>
+                <div class="mb-5">
+                    <label class="block font-label text-[10px] uppercase tracking-widest text-white/40 mb-2"
+                        for="batido-flavor">Sabor</label>
+                    <select id="batido-flavor"
+                        class="w-full bg-surface-container-highest border-none text-white rounded-lg font-body text-sm focus:ring-primary">
+                        <option value="Oreo">Oreo</option>
+                        <option value="Mora">Mora</option>
+                        <option value="Frutilla">Frutilla</option>
+                        <option value="Naranjilla">Naranjilla</option>
+                        <option value="Chocolate">Chocolate</option>
+                        <option value="Chocobanano">Chocobanano</option>
+                        <option value="Chocomenta">Chocomenta</option>
+                        <option value="Menta">Menta</option>
+                        <option value="Chicle">Chicle</option>
+                        <option value="Capuccino">Capuccino</option>
+                        <option value="Moccacino">Moccacino</option>
+                        <option value="Coffe Caramel">Coffe Caramel</option>
+                        <option value="Mamey">Mamey</option>
+                        <option value="Higo">Higo</option>
+                        <option value="Manjar">Manjar</option>
+                        <option value="Banano">Banano</option>
+                    </select>
+                </div>
+                <button id="add-batido-btn"
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">Agregar</button>
+            </div>
+
+            <!-- ===== BATIDOS $1.75 — selector card ===== -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="batidos" id="batidos-premium-card">
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Batidos Premium</h3>
+                    <span class="font-body text-primary font-bold">$1.75</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-4 leading-relaxed">Sabores especiales de temporada.</p>
+                <div class="mb-5">
+                    <label class="block font-label text-[10px] uppercase tracking-widest text-white/40 mb-2"
+                        for="batido-premium-flavor">Sabor</label>
+                    <select id="batido-premium-flavor"
+                        class="w-full bg-surface-container-highest border-none text-white rounded-lg font-body text-sm focus:ring-primary">
+                        <option value="Durazno">Durazno</option>
+                        <option value="Coco">Coco</option>
+                        <option value="Níspero">Níspero</option>
+                        <option value="Frapuccino">Frapuccino</option>
+                    </select>
+                </div>
+                <button id="add-batido-premium-btn"
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">Agregar</button>
+            </div>
+
+            <!-- ===== BEBIDAS ===== -->
+
+            <!-- Subcategoría: Frías -->
+            <div class="menu-item-card col-span-full" data-category="bebidas">
+                <p class="subcategory-label">— Bebidas Frías</p>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="bebidas" data-item='{"id":"bebida-agua","name":"Agua","price":0.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Agua</h3>
+                    <span class="font-body text-primary font-bold">$0.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Agua fría</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="bebidas" data-item='{"id":"bebida-fuze-tea","name":"Fuze Tea","price":0.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Fuze Tea</h3>
+                    <span class="font-body text-primary font-bold">$0.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Té helado</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="bebidas" data-item='{"id":"bebida-jugo-valle","name":"Jugo del Valle","price":0.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Jugo del Valle</h3>
+                    <span class="font-body text-primary font-bold">$0.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Jugo de fruta</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="bebidas" data-item='{"id":"bebida-jugo-sunny","name":"Jugo Sunny","price":0.75}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Jugo Sunny</h3>
+                    <span class="font-body text-primary font-bold">$0.75</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Jugo Sunny Delight</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="bebidas" data-item='{"id":"bebida-frozen","name":"Frozen","price":1.50}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Frozen</h3>
+                    <span class="font-body text-primary font-bold">$1.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Bebida frozen helada</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <!-- Colas — selector sabor + tamaño -->
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="bebidas" id="colas-selector-card">
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Colas</h3>
+                    <span class="font-body text-primary font-bold" id="cola-price-display">$0.50</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-4">Bien frías. Elige sabor y tamaño.</p>
+                <div class="grid grid-cols-2 gap-3 mb-5">
+                    <div>
+                        <label class="block font-label text-[10px] uppercase tracking-widest text-white/40 mb-2"
+                            for="cola-flavor">Sabor</label>
+                        <select id="cola-flavor"
+                            class="w-full bg-surface-container-highest border-none text-white rounded-lg font-body text-sm focus:ring-primary">
+                            <option value="Coca Cola">Coca Cola</option>
+                            <option value="Fanta">Fanta</option>
+                            <option value="Sprite">Sprite</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-label text-[10px] uppercase tracking-widest text-white/40 mb-2"
+                            for="cola-size">Tamaño</label>
+                        <select id="cola-size"
+                            class="w-full bg-surface-container-highest border-none text-white rounded-lg font-body text-sm focus:ring-primary">
+                            <option value="Pequeña" data-price="0.50">Pequeña</option>
+                            <option value="Plástico" data-price="0.75">Plástico</option>
+                            <option value="500ml" data-price="1.00">500ml</option>
+                            <option value="1 Litro" data-price="1.00">1 Litro</option>
+                            <option value="¼ Litro" data-price="1.50">¼ Litro</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="add-cola-btn"
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">Agregar</button>
+            </div>
+
+            <!-- Subcategoría: Calientes -->
+            <div class="menu-item-card col-span-full" data-category="bebidas">
+                <p class="subcategory-label">— Bebidas Calientes</p>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="bebidas" data-item='{"id":"bebida-te-caliente","name":"Té Caliente","price":0.75}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Té Caliente</h3>
+                    <span class="font-body text-primary font-bold">$0.75</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Té caliente artesanal</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+            <div class="menu-item-card bg-surface-container-low p-8 border border-outline-variant/10 hover:border-primary/40 transition-all hidden-item"
+                data-category="bebidas" data-item='{"id":"bebida-cafe","name":"Café","price":0.75}'>
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-headline text-xl text-white">Café</h3>
+                    <span class="font-body text-primary font-bold">$0.75</span>
+                </div>
+                <p class="font-body text-sm text-white/40 mb-6">Café caliente artesanal</p>
+                <button
+                    class="w-full bg-primary text-on-primary py-3 rounded-lg font-label text-xs uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all add-to-cart-btn">Agregar</button>
+            </div>
+
+        </div><!-- /menu-grid -->
+    </main>
+
+    <!-- BottomNavBar (Mobile) -->
+    <nav
+        class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-[#0e0e0e]/80 backdrop-blur-xl border-t border-[#4d4637]/20">
+        <a class="flex flex-col items-center text-white/40 hover:text-white transition-all" href="/"><span
+                class="material-symbols-outlined">home</span><span
+                class="font-sans text-[10px] uppercase tracking-tighter">Home</span></a>
+        <a class="flex flex-col items-center text-[#e6c364] scale-110" href="/menu.html"><span
+                class="material-symbols-outlined">restaurant_menu</span><span
+                class="font-sans text-[10px] uppercase tracking-tighter">Menu</span></a>
+        <a class="flex flex-col items-center text-white/40 hover:text-white transition-all relative" href="/cart.html">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="font-sans text-[10px] uppercase tracking-tighter">Cart</span>
+            <span id="mobile-cart-badge"
+                class="hidden absolute -top-1 -right-1 bg-[#e6c364] text-black text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </a>
+    </nav>
+
+    <!-- Floating Cart Button -->
+    <div id="floating-cart-btn" class="fixed bottom-20 right-6 md:bottom-6 md:right-6 z-[60] cursor-pointer">
+        <div
+            class="relative bg-primary text-on-primary p-4 rounded-full shadow-2xl hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl">shopping_cart</span>
+            <span id="floating-cart-badge"
+                class="hidden absolute -top-1 -right-1 bg-white text-black text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-primary">0</span>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer-overlay"
+        class="fixed inset-0 bg-black/60 z-[100] hidden opacity-0 transition-opacity duration-300"></div>
+    <div id="cart-drawer"
+        class="fixed top-0 right-0 h-full w-full max-w-md bg-surface z-[101] translate-x-full transition-transform duration-300 flex flex-col">
+        <div
+            class="p-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-lowest">
+            <h2 class="font-headline text-2xl text-white">Tu Pedido</h2>
+            <button id="close-drawer" class="material-symbols-outlined text-white/60 hover:text-white"
+                aria-label="Cerrar carrito">close</button>
+        </div>
+        <div id="drawer-items" class="flex-grow overflow-y-auto p-6 space-y-6 no-scrollbar"></div>
+        <div class="p-6 border-t border-outline-variant/20 bg-surface-container-lowest">
+            <div class="flex justify-between items-center mb-6">
+                <span class="font-body text-sm uppercase tracking-widest text-white/60">Subtotal</span>
+                <span id="drawer-subtotal" class="font-body text-xl text-primary font-bold">$0.00</span>
+            </div>
+            <a href="/cart.html"
+                class="block w-full bg-primary text-on-primary py-4 text-center font-label text-sm uppercase tracking-widest font-bold rounded-lg hover:bg-white hover:text-black transition-all">Ver
+                Pedido Completo</a>
+        </div>
+    </div>
+
+    <!-- Customization Modal -->
+    <div id="modal-overlay"
+        class="fixed inset-0 bg-black/80 z-[200] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-6">
+        <div id="custom-modal"
+            class="bg-surface-container-lowest w-full max-w-lg rounded-2xl overflow-hidden translate-y-8 transition-transform duration-300 shadow-2xl border border-outline-variant/20">
+            <div class="p-8 border-b border-outline-variant/10 flex justify-between items-center">
+                <h2 id="modal-title" class="font-headline text-2xl text-white">Personalizar</h2>
+                <button id="close-modal" class="material-symbols-outlined text-white/40 hover:text-white"
+                    aria-label="Cerrar modal">close</button>
+            </div>
+            <div class="p-8">
+                <p class="font-label text-[10px] uppercase tracking-[0.2em] text-primary mb-6">Quitar ingredientes</p>
+                <div id="ingredients-list" class="space-y-3 max-h-72 overflow-y-auto no-scrollbar"></div>
+            </div>
+            <div class="p-8 bg-surface-container-low">
+                <button id="modal-add-btn"
+                    class="w-full bg-primary text-on-primary py-4 rounded-xl font-label text-sm uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">Agregar
+                    al carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"
+        class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[110] bg-primary text-on-primary px-6 py-3 rounded-full font-body text-sm font-semibold shadow-xl opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
+        ✓ Agregado al carrito
+    </div>
+
+    <script src="src/logic.js"></script>
+</body>
+
+</html>
